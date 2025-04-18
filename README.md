@@ -1,66 +1,110 @@
-# Reto Técnico: Procesamiento de Transacciones Bancarias (CLI)
+# 🧾 Bank Transactions CLI
 
-## Objetivo:
+## 🧩 README del Proyecto
 
-Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CSV con transacciones bancarias y genere un reporte que incluya:
-
-- **Balance Final:**  
-  Suma de los montos de las transacciones de tipo "Crédito" menos la suma de los montos de las transacciones de tipo "Débito".
-
-- **Transacción de Mayor Monto:**  
-  Identificar el ID y el monto de la transacción con el valor más alto.
-
-- **Conteo de Transacciones:**  
-  Número total de transacciones para cada tipo ("Crédito" y "Débito").
+Este documento forma parte del reto técnico propuesto por Interbank Academy. A continuación, se presenta la documentación del proyecto incluyendo introducción, instrucciones de ejecución, enfoque técnico y estructura general.
 
 ---
 
-## Instrucciones
+## 1️⃣ Introducción
 
-1. **Repositorio Base:**  
-   Clona o haz un fork del repositorio base disponible en:  
-   `https://github.com/codeableorg/interbank-academy-25`
+Este proyecto fue desarrollado como parte de un reto técnico de la Interbank Academy.  
+El objetivo es construir una aplicación de línea de comandos (CLI) que procese un archivo CSV con transacciones bancarias y genere un reporte con:
 
-2. **Entrada de Datos:**  
-   La aplicación deberá leer un archivo CSV. Ejemplo de contenido:
+- El **balance final** (Créditos - Débitos)
+- La **transacción con el monto más alto**
+- El **conteo de transacciones** por tipo (Crédito y Débito)
 
+---
+
+## 2️⃣ Instrucciones de Ejecución
+
+A continuación, se detallan los pasos para instalar y ejecutar el proyecto correctamente:
+
+### 🔧 Requisitos
+
+- Python 3.8 o superior
+- Dependencias definidas en `requirements.txt`
+
+### 📦 Pasos de instalación y ejecución
+
+1. Clonar el repositorio:
+
+   ```bash
+   git clone https://github.com/codeableorg/interbank-academy-25.git
+   cd interbank-academy-25
    ```
-   id,tipo,monto
-   1,Crédito,100.00
-   2,Débito,50.00
-   3,Crédito,200.00
-   4,Débito,75.00
-   5,Crédito,150.00
+
+2. Crear y activar un entorno virtual (recomendado):
+
+   - En Linux/macOS:
+
+     ```bash
+     python -m venv venv
+     source venv/bin/activate
+     ```
+
+3. Instalar las dependencias del proyecto:
+
+   ```bash
+   pip install -r requirements.txt
    ```
 
-3. **Salida del Programa:**  
-   La aplicación debe mostrar el reporte final en la terminal.  
-   Ejemplo de salida:
+4. Ejecutar la aplicación principal:
 
-   ```
-   Reporte de Transacciones
-   ---------------------------------------------
-   Balance Final: 325.00
-   Transacción de Mayor Monto: ID 3 - 200.00
-   Conteo de Transacciones: Crédito: 3 Débito: 2
+   ```bash
+   python main.py
    ```
 
-4. **Lenguaje de Programación:**  
-   Utiliza el lenguaje de tu preferencia. Opciones recomendadas:
+   Esto procesará el archivo por defecto ubicado en `data/data.csv`.
 
-   - Python
-   - Java
-   - C#
-   - JavaScript (Node.js)
+5. (Opcional) Ejecutar la aplicación con un archivo CSV personalizado:
 
-5. **README del Proyecto:**  
-   Incluye un archivo `README.md` con la siguiente estructura:
+   ```bash
+   python main.py --csvfile ruta/a/otro_archivo.csv
+   ```
 
-   - **Introducción:** Breve descripción del reto y su propósito.
-   - **Instrucciones de Ejecución:** Cómo instalar dependencias y ejecutar la aplicación.
-   - **Enfoque y Solución:** Lógica implementada y decisiones de diseño.
-   - **Estructura del Proyecto:** Archivos y carpetas principales.
+6. (Opcional) Ejecutar las pruebas unitarias:
 
-6. **Documentación y Calidad del Código:**
-   - Código bien documentado y fácil de leer.
-   - Comentarios explicando pasos clave y lógica del programa.
+   ```bash
+   pytest
+   ```
+
+---
+
+## 3️⃣ Enfoque y Solución
+
+El proyecto fue diseñado siguiendo principios de **arquitectura limpia**, **modularidad** y **precisión financiera**. Las decisiones clave incluyen:
+
+- **Separación de responsabilidades:**  
+  Toda la lógica de negocio se encuentra en la clase `TransactionProcessor` (`app/processor.py`). El archivo `main.py` actúa como punto de entrada de la CLI.
+
+- **Redondeo financiero correcto:**  
+  Se utiliza la función `format_money()` con `Decimal("0.01")` y `ROUND_HALF_UP` para asegurar que todos los montos estén redondeados con precisión contable a dos decimales.
+
+- **Uso de pandas:**  
+  El archivo CSV se carga utilizando `pandas` para aprovechar su eficiencia, robustez y facilidad de iteración.
+
+- **Estructura mantenible y extensible:**  
+  El proyecto está listo para escalar fácilmente con funcionalidades adicionales como filtros, exportadores o soporte a múltiples monedas.
+
+- **Pruebas automatizadas:**  
+  Se incluye una carpeta `tests/` con pruebas unitarias para asegurar que los cálculos de balance, máximos y conteo funcionan correctamente.
+
+---
+
+## 4️⃣ Estructura del Proyecto
+
+```
+interbank-academy-25/
+├── app/
+│   ├── processor.py         # Clase principal para el procesamiento de transacciones
+│   └── utils.py             # Funciones auxiliares (format_money() por ahora)
+├── data/
+│   └── data.csv             # Archivo CSV de entrada por defecto
+├── tests/
+│   └── test_processor.py    # Pruebas unitarias del procesador
+├── main.py                  # Punto de entrada de la aplicación CLI
+├── requirements.txt         # Dependencias necesarias
+└── README.md                # README
+```
