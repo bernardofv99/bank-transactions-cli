@@ -31,8 +31,8 @@ A continuación, se detallan los pasos para instalar y ejecutar el proyecto corr
 1. Clonar el repositorio:
 
    ```bash
-   git clone https://github.com/codeableorg/interbank-academy-25.git
-   cd interbank-academy-25
+   git clone https://github.com/bernardofv99/bank-transactions-cli.git
+   cd bank-transactions-cli
    ```
 
 2. Crear y activar un entorno virtual (recomendado):
